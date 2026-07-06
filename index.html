@@ -420,8 +420,8 @@
   <!-- HERO -->
   <section id="hero">
     <div id="particles"></div>
-    <div class="logo-badge">
-      <img class="hero-logo" id="schoolLogo" src="assets/logo.png" alt="Logo trường" onerror="this.parentElement.style.display='none'">
+    <div class="logo-badge" id="logoBadge" style="display:none;">
+      <img class="hero-logo" id="schoolLogo" src="" alt="Logo trường">
     </div>
     <p class="hero-school" id="schoolName"></p>
 
@@ -475,7 +475,7 @@
         <p class="info-venue" id="infoVenue"></p>
         <p class="info-address" id="infoAddress"></p>
         <a class="map-btn" id="mapBtn" href="#" target="_blank" rel="noopener">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.4"/></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="3"/></svg>
           Xem đường đi
         </a>
       </div>
@@ -507,7 +507,7 @@
 </main>
 
 <!-- NÚT BẬT/TẮT NHẠC -->
-<button id="music-toggle" aria-label="Bật nhạc nền">
+<button id="music-toggle" aria-label="Bật nhạc nền" style="display:none;">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
     <path d="M9 18V5l11-2v13"/>
     <circle cx="6" cy="18" r="3"/>
@@ -515,7 +515,7 @@
     <line id="muteSlash" x1="2.5" y1="2.5" x2="21.5" y2="21.5"/>
   </svg>
 </button>
-<audio id="bgm" src="assets/nhac-nen.mp3" loop preload="none"></audio>
+<audio id="bgm" loop preload="none"></audio>
 
 <script>
 /* ============================================================
@@ -524,7 +524,7 @@
 const CONFIG = {
   // Dùng \n ở vị trí muốn xuống dòng
   schoolName: "Trường Đại học Ngoại ngữ\nĐại học Đà Nẵng",
-  schoolLogo: "assets/logo.png",     // đặt file logo trường vào thư mục assets/
+  schoolLogo: "",     // để trống nếu không có logo
 
   graduateName: "Nguyễn Thị Long Tuyến",
   // Dùng \n ở vị trí muốn xuống dòng
@@ -538,16 +538,15 @@ const CONFIG = {
 
   venueName: "Trường Đại học Ngoại ngữ – Đại học Đà Nẵng",
   address: "131 Lương Nhữ Hộc, Cẩm Lệ, Đà Nẵng",
-  mapUrl: "https://www.google.com/maps/place/Tr%C6%B0%E1%BB%9Dng+%C4%90%E1%BA%A1i+h%E1%BB%8Dc+Ngo%E1%BA%A1i+ng%E1%BB%AF+%C4%90%C3%A0+N%E1%BA%B5ng+-+C%C6%A1+s%E1%BB%9F+2/@16.0347395,108.2112724,18z/data=!4m7!1m4!3m3!1s0x0:0x0!2zMTbCsDAyJzA1LjQiTiAxMDjCsDEyJzQwLjMiRQ!3b1!3m1!1s0x0000000000000000:0x4dbbb9ccec61fee3",
+  mapUrl: "https://www.google.com/maps/place/Tr%C6%B0%E1%BB%9Dng+%C4%90%E1%BA%A1i+h%E1%BB%8Dc+Ngo%E1%BA%A1i+ng%E1%BB%AF+%C4%90%C3%A0+N%E1%BA%B5ng+-+C%C6%A1+s%E1%BB%9F+2/@16.0347395,108.2112724,18z",
 
   hashtag: "#Graduation2026",
 
-  // Nhạc nền
-  music: "assets/nhac-nen.mp3",
+  // Nhạc nền — để trống nếu không có
+  music: "",
 
-  // Ảnh kỷ niệm (tuỳ chọn) — để trống [] nếu chưa có ảnh, phần Gallery sẽ tự ẩn.
-  // Khi có ảnh, thêm đường dẫn vào đây, ví dụ: ["assets/photo1.jpg","assets/photo2.jpg"]
-  photos: ["assets/photo1.jpg","assets/photo2.jpg","assets/photo3.jpg","assets/photo4.jpg","assets/photo5.jpg","assets/photo6.jpg"],
+  // Ảnh kỷ niệm (tuỳ chọn) — để trống [] nếu chưa có ảnh
+  photos: [],
 
   // Lịch hiển thị
   calendar: { year: 2026, month: 7, highlightDay: 25 }, // month: 1-12
@@ -570,7 +569,13 @@ function getGuestName(){
    ============================================================ */
 function populateContent(){
   document.getElementById('schoolName').innerHTML = CONFIG.schoolName.replace(/\n/g, '<br>');
-  document.getElementById('schoolLogo').src = CONFIG.schoolLogo;
+  
+  // Hiển thị logo chỉ khi có
+  if(CONFIG.schoolLogo){
+    document.getElementById('logoBadge').style.display = 'flex';
+    document.getElementById('schoolLogo').src = CONFIG.schoolLogo;
+  }
+  
   document.getElementById('hashtagText').textContent = CONFIG.hashtag;
   document.getElementById('guestName').textContent = getGuestName();
 
@@ -587,7 +592,10 @@ function populateContent(){
 
   document.getElementById('footerHashtag').textContent = CONFIG.hashtag;
 
-  document.getElementById('bgm').src = CONFIG.music;
+  if(CONFIG.music){
+    document.getElementById('bgm').src = CONFIG.music;
+    document.getElementById('music-toggle').style.display = 'flex';
+  }
 
   document.title = "Thiệp mời Lễ Tốt Nghiệp – " + CONFIG.graduateName;
 }
@@ -723,7 +731,6 @@ function initMusic(){
     if(playing){ audio.pause(); setState(false); }
     else{ audio.play().then(()=>setState(true)).catch(()=>setState(false)); }
   });
-  // Cho phép các phần khác (vd: lúc mở phong bì) cập nhật đúng trạng thái nút
   return { setState };
 }
 
@@ -741,17 +748,19 @@ function initGate(musicControl){
   function reveal(){
     gate.classList.add('hidden');
     main.classList.add('show');
-    audio.play().then(()=>{
-      musicControl.setState(true);
-    }).catch(()=>{ /* trình duyệt chặn, người dùng có thể bấm nút nhạc thủ công */ });
+    if(CONFIG.music){
+      audio.play().then(()=>{
+        musicControl.setState(true);
+      }).catch(()=>{ /* trình duyệt chặn, người dùng có thể bấm nút nhạc thủ công */ });
+    }
   }
   function openInvitation(){
     if(opened) return;
     opened = true;
-    envelope.classList.add('lift');           // nổi lên + con dấu đổi màu
+    envelope.classList.add('lift');
     setTimeout(()=>{
-      envelope.classList.add('open');          // nắp phong bì mở ra
-      setTimeout(reveal, 750);                 // chờ hiệu ứng chạy xong rồi hiện nội dung
+      envelope.classList.add('open');
+      setTimeout(reveal, 750);
     }, 260);
   }
 
