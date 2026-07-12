@@ -4,729 +4,327 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>Thiệp mời Lễ Tốt Nghiệp</title>
-<meta name="theme-color" content="#12233F">
-
-<!-- ============================================================
-     CẤU HÌNH THIỆP — chỉ cần sửa trong khối CONFIG bên dưới (JS),
-     không cần đụng vào phần code còn lại.
-     ============================================================ -->
-
+<meta name="theme-color" content="#0F2036">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&family=Alex+Brush&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root{
-    /* ---- Token màu (áo cử nhân navy + kim tuyến vàng tua) ---- */
-    --ink-navy:      #0F2036;
-    --ink-navy-2:    #16314F;
-    --ink-navy-3:    #1D3E63;
-    --parchment:     #F7F1E3;
-    --parchment-2:   #FBF7ED;
-    --gold:          #C79B4A;
-    --gold-soft:     #E4CD94;
-    --gold-line:     rgba(199,155,74,0.45);
-    --text-dark:     #1E2430;
-    --text-on-navy:  #F3EEE0;
-    --text-on-navy-dim: rgba(243,238,224,0.68);
-    --shadow-soft: 0 20px 60px rgba(15,32,54,0.25);
-  }
+:root{
+  --cream:#FAF6EC; --gold:#C79B4A; --gold-soft:#E4CD94;
+  --maroon:#7C1B24; --ink:#4A302A; --ink-dim:#6B5F53; --navy:#0F2036; --navy-2:#16314F;
+}
+*{box-sizing:border-box;}
+h1,p{margin:0;}
+html,body{height:100%;}
+body{margin:0;background:var(--navy);color:var(--ink);font-family:'Be Vietnam Pro',sans-serif;overflow:hidden;-webkit-font-smoothing:antialiased;}
+.eyebrow{font-size:12px;letter-spacing:.3em;text-transform:uppercase;font-weight:600;}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms !important;transition-duration:.001ms !important;}}
 
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    background:var(--ink-navy);
-    color:var(--text-dark);
-    font-family:'Be Vietnam Pro', sans-serif;
-    overflow-x:hidden;
-    -webkit-font-smoothing:antialiased;
-  }
-  ::selection{ background:var(--gold-soft); color:var(--ink-navy); }
+/* ============ TRANG BÌA ============ */
+#cover{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:32px;
+  background:radial-gradient(120% 140% at 50% -10%,#1C3B60 0%,var(--navy) 55%),var(--navy);
+  transition:opacity .7s ease,visibility .7s ease;}
+#cover.hidden{opacity:0;visibility:hidden;pointer-events:none;}
+.cover-eyebrow{color:var(--gold-soft);margin-bottom:22px;}
+.envelope{position:relative;width:min(280px,72vw);aspect-ratio:3/2;margin:0 auto 22px;perspective:1000px;
+  transition:transform .4s cubic-bezier(.2,.8,.3,1),filter .4s ease;}
+.envelope:hover,.envelope.lift{transform:translateY(-8px) scale(1.02);filter:drop-shadow(0 18px 26px rgba(0,0,0,.35));}
+.env-body{position:absolute;inset:0;background:linear-gradient(160deg,#F3ECDD,#FAF5EA);border:1px solid rgba(199,155,74,.45);border-radius:8px;box-shadow:0 20px 50px rgba(0,0,0,.3);overflow:hidden;}
+.env-body::before,.env-body::after{content:'';position:absolute;bottom:0;width:0;height:0;border-style:solid;}
+.env-body::before{left:0;border-width:0 0 50% 52%;border-color:transparent transparent rgba(199,155,74,.14) transparent;}
+.env-body::after{right:0;border-width:0 52% 50% 0;border-color:transparent transparent rgba(199,155,74,.14) transparent;}
+.env-flap{position:absolute;top:0;left:0;width:100%;height:58%;background:linear-gradient(155deg,var(--navy-2),var(--navy));clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top center;transition:transform 1s cubic-bezier(.6,.2,.2,1),opacity .5s ease .3s;z-index:3;display:flex;align-items:flex-end;justify-content:center;padding-bottom:8%;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
+.envelope.open .env-flap{transform:rotateX(150deg);opacity:0;}
+.seal{width:58px;height:58px;border-radius:50%;border:1.5px solid var(--gold);background:var(--navy);display:flex;align-items:center;justify-content:center;position:relative;animation:breathe 3.6s ease-in-out infinite;transition:transform .3s,background .3s,border-color .3s,box-shadow .3s;}
+.seal::before{content:'';position:absolute;inset:6px;border:1px solid rgba(199,155,74,.45);border-radius:50%;}
+.seal svg{width:25px;height:25px;color:var(--gold-soft);transition:color .3s;}
+@keyframes breathe{0%,100%{box-shadow:0 0 0 0 rgba(199,155,74,0);}50%{box-shadow:0 0 20px 4px rgba(199,155,74,.22);}}
+.envelope:hover .seal,.envelope.lift .seal{transform:translateY(-3px) scale(1.06);background:var(--gold);border-color:var(--gold-soft);box-shadow:0 10px 22px rgba(199,155,74,.5);}
+.envelope:hover .seal svg,.envelope.lift .seal svg{color:var(--navy);}
+.cover-title{color:#F3EEE0;font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(24px,6vw,38px);line-height:1.3;max-width:90vw;margin-top:4px;}
+.cover-title span{display:block;}
+.cover-title .sub{font-size:.66em;margin-top:8px;font-style:italic;color:var(--gold-soft);font-weight:400;}
 
-  h1,h2,h3,.serif{
-    font-family:'Fraunces', serif;
-    font-weight:500;
-    letter-spacing:0.01em;
-    margin:0;
-  }
+/* ============ TRANG NỘI DUNG (lá thư giới hạn khung) ============ */
+#letterPage{position:fixed;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;
+  background:var(--navy);padding:16px;}
+.letter-card{
+  position:relative;
+  width:min(430px,92vw,calc(90svh / 1.58));
+  aspect-ratio:1/1.58;
+  background:var(--cream);
+  border:1px solid rgba(199,155,74,.4);
+  border-radius:14px;
+  box-shadow:0 30px 70px rgba(0,0,0,.45);
+  overflow:hidden;
+  container-type:size;
+  transform:translateY(18vh) scale(.16);
+  opacity:0;
+  transition:transform .9s cubic-bezier(.16,.8,.2,1),opacity .6s ease;
+}
+.letter-card.shown{transform:translateY(0) scale(1);opacity:1;}
+.silk{position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(55% 35% at 10% 6%,rgba(255,255,255,.9),transparent 60%),
+    radial-gradient(50% 40% at 92% 12%,rgba(150,140,150,.12),transparent 65%),
+    radial-gradient(65% 45% at 15% 45%,rgba(255,255,255,.65),transparent 60%),
+    radial-gradient(55% 40% at 88% 55%,rgba(150,140,150,.12),transparent 65%),
+    radial-gradient(60% 45% at 25% 90%,rgba(255,255,255,.7),transparent 60%),
+    radial-gradient(50% 35% at 95% 96%,rgba(150,140,150,.12),transparent 65%);
+  animation:silk-drift 20s ease-in-out infinite;
+}
+@keyframes silk-drift{
+  0%,100%{transform:scale(1) translate(0,0);}
+  50%{transform:scale(1.08) translate(-2.5%,2%);}
+}
 
-  .eyebrow{
-    font-family:'Be Vietnam Pro', sans-serif;
-    font-size:12px;
-    letter-spacing:0.32em;
-    text-transform:uppercase;
-    font-weight:600;
-  }
+.fabric-sheen{
+  position:absolute; inset:0; pointer-events:none;
+  background: repeating-linear-gradient(120deg,
+    transparent 0%, transparent 8%,
+    rgba(255,255,255,0.85) 12%,
+    transparent 16%, transparent 30%,
+    rgba(120,110,100,0.14) 34%,
+    transparent 38%, transparent 55%,
+    rgba(255,255,255,0.65) 59%,
+    transparent 63%, transparent 100%
+  );
+  background-size: 260% 260%;
+  animation: sheen-move 9s ease-in-out infinite alternate;
+}
+@keyframes sheen-move{
+  0%{ background-position: 0% 0%; }
+  100%{ background-position: 100% 60%; }
+}
 
-  a{color:inherit;}
-  button{font-family:inherit;}
+.silk-noise{position:absolute;inset:0;opacity:.045;mix-blend-mode:multiply;pointer-events:none;}
 
-  /* reduced motion */
-  @media (prefers-reduced-motion: reduce){
-    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
-  }
 
-  /* =========================================================
-     GATE / MÀN MỞ THIỆP
-     ========================================================= */
-  #gate{
-    position:fixed; inset:0; z-index:100;
-    background:
-      radial-gradient(120% 140% at 50% -10%, #1C3B60 0%, var(--ink-navy) 55%),
-      var(--ink-navy);
-    display:flex; align-items:center; justify-content:center;
-    flex-direction:column;
-    text-align:center;
-    padding:32px;
-    transition:opacity 0.9s ease, visibility 0.9s ease;
-  }
-  #gate.hidden{ opacity:0; visibility:hidden; pointer-events:none; }
+.letter-inner{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:2.2cqh 6cqw 4.8cqh;}
 
-  .gate-eyebrow{ color:var(--gold-soft); margin-bottom:22px; }
+/* ---- Vùng 1 ---- */
+.zone-top{flex:0 0 auto;display:flex;flex-direction:column;justify-content:flex-start;gap:2.4cqh;}
+.brand-row{display:flex;align-items:center;justify-content:center;gap:1.8cqw;width:100%;}
+.brand-logo{width:8cqh;height:8cqh;border-radius:50%;background:radial-gradient(circle at 32% 28%,#fff,#F3ECD8 78%);border:1.2px solid rgba(199,155,74,.5);box-shadow:0 6px 14px rgba(60,40,30,.18);display:flex;align-items:center;justify-content:center;padding:1.2cqh;flex-shrink:0;}
+.brand-logo img{width:100%;height:100%;object-fit:contain;}
+.brand-school{font-size:1.6cqh;line-height:1.4;letter-spacing:.02em;text-transform:uppercase;color:#3D312B;text-align:left;white-space:nowrap;}
 
-  /* ---- Phong bì thư ---- */
-  .envelope{
-    position:relative;
-    width:min(300px, 78vw);
-    aspect-ratio:3/2;
-    margin:0 auto 22px;
-    perspective:1000px;
-    transition:transform 0.4s cubic-bezier(.2,.8,.3,1), filter 0.4s ease;
-  }
-  .envelope:hover, .envelope.lift{
-    transform:translateY(-8px) scale(1.015);
-    filter:drop-shadow(0 18px 26px rgba(0,0,0,0.35));
-  }
-  .env-body{
-    position:absolute; inset:0;
-    background:linear-gradient(160deg, var(--parchment-2), var(--parchment));
-    border:1px solid var(--gold-line);
-    border-radius:8px;
-    box-shadow:var(--shadow-soft);
-    overflow:hidden;
-  }
-  .env-body::before,.env-body::after{
-    content:''; position:absolute; bottom:0; width:0; height:0; border-style:solid;
-  }
-  .env-body::before{ left:0; border-width:0 0 50% 52%; border-color:transparent transparent rgba(199,155,74,0.14) transparent; }
-  .env-body::after{ right:0; border-width:0 52% 50% 0; border-color:transparent transparent rgba(199,155,74,0.14) transparent; }
+/* dải sash - phủ tuyệt đối 2 bên, không chiếm chỗ trong luồng nội dung */
+.sash{position:absolute;top:0;height:42cqh;width:auto;aspect-ratio:173/900;z-index:1;pointer-events:none;filter:drop-shadow(0 10px 14px rgba(60,20,20,.3));}
+.sash-left{left:0;}
+.sash-right{right:0;}
 
-  .env-flap{
-    position:absolute; top:0; left:0; width:100%; height:58%;
-    background:linear-gradient(155deg, var(--ink-navy-3), var(--ink-navy));
-    clip-path:polygon(0 0,100% 0,50% 100%);
-    transform-origin:top center;
-    transition:transform 1s cubic-bezier(.6,.2,.2,1), opacity 0.5s ease 0.35s;
-    z-index:3;
-    display:flex; align-items:flex-end; justify-content:center;
-    padding-bottom:8%;
-    cursor:pointer;
-    touch-action:manipulation;
-    -webkit-tap-highlight-color:transparent;
-  }
-  .envelope.open .env-flap{ transform:rotateX(150deg); opacity:0; }
+.gc-title{position:relative;text-align:center;}
+.gc-title span{display:block;font-family:'Playfair Display',serif;font-style:italic;font-weight:600;font-size:6.6cqh;line-height:1.06;color:var(--ink);margin-top:1cqh}
+.gc-cap{position:absolute;top:-5cqh;left:75%;transform:translateX(-50%) rotate(-3deg);width:8cqh;height:auto;margin-top:1cqh;fill:#20201d}
 
-  .gate-seal{
-    width:60px; height:60px; border-radius:50%;
-    border:1.5px solid var(--gold);
-    background:var(--ink-navy);
-    display:flex; align-items:center; justify-content:center;
-    position:relative;
-    animation:seal-breathe 3.6s ease-in-out infinite;
-    transition:transform 0.3s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-  }
-  .gate-seal::before{
-    content:'';
-    position:absolute; inset:6px;
-    border:1px solid var(--gold-line);
-    border-radius:50%;
-  }
-  .gate-seal svg{ width:26px; height:26px; color:var(--gold-soft); transition:color 0.3s ease; }
-  @keyframes seal-breathe{
-    0%,100%{ box-shadow:0 0 0 0 rgba(199,155,74,0.0); }
-    50%{ box-shadow:0 0 20px 4px rgba(199,155,74,0.22); }
-  }
-  .envelope:hover .gate-seal, .envelope.lift .gate-seal{
-    transform:translateY(-3px) scale(1.06);
-    background:var(--gold);
-    border-color:var(--gold-soft);
-    box-shadow:0 10px 22px rgba(199,155,74,0.5);
-  }
-  .envelope:hover .gate-seal svg, .envelope.lift .gate-seal svg{ color:var(--ink-navy); }
+/* ---- Vùng 2 ---- */
+.zone-mid{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:1.4cqh;margin-top:5.5cqh;}
+.p-name{font-family:'Alex Brush',cursive;font-size:6.2cqh;color:#7C1B24;white-space:nowrap;line-height:1;}
+.p-msg{font-family:'Playfair Display',serif;font-style:italic;font-size:2.8cqh;color:#5F5148;line-height:1.4;}
 
-  .gate-title{ color:var(--text-on-navy); font-size:clamp(26px,6.4vw,42px); line-height:1.3; max-width:92vw; margin-top:6px; }
-  .gate-title span{ display:block; }
-  .gate-title .sub{ font-size:0.66em; margin-top:8px; font-style:italic; color:var(--gold-soft); font-weight:400; }
+/* ---- Vùng 3 ---- */
+.zone-bottom{flex:0 0 auto;display:flex;flex-direction:column;gap:3cqh;margin-top: -5cqh;}
+.dt-row{display:flex;align-items:center;justify-content:center;gap:3.5cqw;}
+.wd-col,.time-col{display:flex;flex-direction:column;align-items:center;gap:.7cqh;}
+.wd-line{width:100%;height:1px;background:rgba(199,155,74,.5);}
+.wd-label{font-size:1.95cqh;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);font-weight:600;}
+.date-col{display:flex;flex-direction:column;align-items:center;gap:1.3cqh;}
+.date-month{font-size:1.7cqh;letter-spacing:.24em;color:var(--maroon);text-transform:uppercase;}
+.date-day{font-family:'Playfair Display',serif;font-weight:600;font-size:6.6cqh;margin-top:-2.5cqh;line-height:1;color:var(--ink);animation:pulse-day 2.2s ease-in-out infinite;}
+.date-year{font-size:1.7cqh;letter-spacing:.14em;color:var(--ink-dim);}
+@keyframes pulse-day{0%,100%{transform:scale(1);}50%{transform:scale(1.06);}}
+.time-badge{font-size:1.95cqh;letter-spacing:.04em;color:var(--ink);font-weight:600;white-space:nowrap;}
+.loc-block{text-align:center;}
+.loc-label{font-size:1.4cqh;letter-spacing:.28em;color:var(--gold);text-transform:uppercase;margin-bottom:2.5cqh;}
+.loc-venue{font-family:'Playfair Display',serif;font-size:2.5cqh;color:var(--ink);margin-bottom:2.3cqh;white-space:nowrap;}
+.loc-addr{font-size:2.5cqh;color:var(--ink-dim);margin-bottom:2cqh;line-height:1.3;}
+.loc-btn{display:inline-flex;align-items:center;gap:.6cqw;background:var(--navy);color:#C79B4A;padding:1cqh 3.6cqw;border-radius:999px;text-decoration:none;font-size:1.55cqh;letter-spacing:.1em;text-transform:uppercase;box-shadow:0 8px 18px rgba(15,32,54,.25);transition:transform .25s,background .3s;}
+.loc-btn:hover{background:var(--navy-2);transform:translateY(-2px);}
+.loc-btn svg{width:1.8cqh;height:1.8cqh;}
 
-  /* =========================================================
-     LỚP CHUNG
-     ========================================================= */
-  main{
-    opacity:0;
-    transition:opacity 1.1s ease;
-  }
-  main.show{ opacity:1; }
+/* nút nhạc – góc dưới phải của tấm thiệp */
+#musicBtn{position:absolute;right:3.2cqw;bottom:3.2cqw;z-index:5;width:8cqh;height:8cqh;min-width:36px;min-height:36px;border-radius:50%;background:var(--navy);border:1px solid rgba(199,155,74,.45);color:var(--gold-soft);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(0,0,0,.28);touch-action:manipulation;-webkit-tap-highlight-color:transparent;opacity:0;transition:opacity .5s ease;}
+#musicBtn.in{opacity:1;}
+#musicBtn svg{width:46%;height:46%;}
+#musicBtn #slash{opacity:1;transition:opacity .25s ease;}
+#musicBtn.playing #slash{opacity:0;}
+#musicBtn.playing svg{animation:note-pulse 1.7s ease-in-out infinite;}
+@keyframes note-pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.14);}}
 
-  section{ position:relative; padding:96px 24px; }
-  .section-inner{ max-width:640px; margin:0 auto; }
+/* ============ HIỆU ỨNG XUẤT HIỆN ============ */
+.sash-left{opacity:0;transform:translateY(-60%) rotate(-8deg);}
+.sash-right{opacity:0;transform:translateY(-60%) rotate(8deg);}
+.letter-card.opened .sash-left{animation:sash-drop .8s cubic-bezier(.2,.7,.3,1) .15s forwards;}
+.letter-card.opened .sash-right{animation:sash-drop 0.8s cubic-bezier(.2,.7,.3,1) .25s forwards;}
+@keyframes sash-drop{to{opacity:1;transform:translateY(0) rotate(0);}}
 
-  .reveal{ opacity:0; transform:translateY(22px); transition:opacity 0.9s ease, transform 0.9s ease; }
-  .reveal.in{ opacity:1; transform:translateY(0); }
+.brand-row{opacity:0;transform:scale(.9);}
+.letter-card.opened .brand-row{animation:brand-fade .7s ease .4s forwards;}
+@keyframes brand-fade{to{opacity:1;transform:scale(1);}}
 
-  .divider{
-    width:64px; height:1px; margin:28px auto;
-    background:linear-gradient(90deg, transparent, var(--gold), transparent);
-  }
+.gc-title span{opacity:0;transform:translateY(14px);}
+.letter-card.opened .gc-title span:nth-child(1){animation:title-rise .7s ease .55s forwards;}
+.letter-card.opened .gc-title span:nth-child(2){animation:title-rise .7s ease .68s forwards;}
+@keyframes title-rise{to{opacity:1;transform:translateY(0);}}
+.gc-cap{opacity:0;transform:rotate(-40deg) scale(.4);}
+.letter-card.opened .gc-cap{animation:cap-pop .6s cubic-bezier(.34,1.56,.64,1) .85s forwards;}
+@keyframes cap-pop{to{opacity:1;transform:rotate(-12deg) scale(1);}}
 
-  /* =========================================================
-     HERO
-     ========================================================= */
-  #hero{
-    min-height:100svh;
-    background:
-      radial-gradient(140% 120% at 50% 0%, #1C3B60 0%, var(--ink-navy) 60%),
-      var(--ink-navy);
-    color:var(--text-on-navy);
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    text-align:center;
-    overflow:hidden;
-    padding:80px 24px;
-  }
-  #particles{ position:absolute; inset:0; pointer-events:none; }
-  .mote{
-    position:absolute; bottom:-8%;
-    width:4px; height:4px; border-radius:50%;
-    background:var(--gold-soft);
-    opacity:0;
-    animation:drift linear infinite;
-  }
-  @keyframes drift{
-    0%{ opacity:0; transform:translateY(0) translateX(0); }
-    8%{ opacity:0.55; }
-    92%{ opacity:0.35; }
-    100%{ opacity:0; transform:translateY(-108vh) translateX(var(--dx,20px)); }
-  }
+.p-name{opacity:0;letter-spacing:.3em;}
+.letter-card.opened .p-name{animation:name-reveal .8s ease 1s forwards;}
+@keyframes name-reveal{to{opacity:1;letter-spacing:normal;}}
 
-  .logo-badge{
-    width:86px; height:86px; border-radius:50%;
-    background:radial-gradient(circle at 32% 28%, #ffffff, #F1E8CF 78%);
-    border:1.5px solid var(--gold-line);
-    box-shadow:0 10px 26px rgba(0,0,0,0.28), inset 0 0 0 1px rgba(255,255,255,0.5);
-    display:flex; align-items:center; justify-content:center;
-    padding:12px;
-    margin-bottom:20px;
-  }
-  .hero-logo{ width:100%; height:100%; object-fit:contain; }
-  .hero-school{ color:var(--text-on-navy-dim); font-size:13px; letter-spacing:0.18em; text-transform:uppercase; margin-bottom:30px; max-width:320px; }
+.p-msg{opacity:0;transform:translateY(10px);}
+.letter-card.opened .p-msg{animation:msg-fade .7s ease 1.2s forwards;}
+@keyframes msg-fade{to{opacity:1;transform:translateY(0);}}
 
-  .hero-eyebrow{ color:var(--gold-soft); margin-bottom:18px; }
-  .hero-title{ font-size:clamp(32px,8vw,58px); line-height:1.22; }
-  .hero-title span{ display:block; }
-  .hero-title .sub{ font-size:0.6em; margin-top:10px; }
-  .hero-title em{ font-style:italic; color:var(--gold-soft); font-weight:400; }
-  .hero-hashtag{ margin-top:20px; color:var(--gold); font-size:14px; letter-spacing:0.14em; }
+.wd-col,.date-col,.time-col{opacity:0;transform:scale(.85);}
+.letter-card.opened .wd-col{animation:date-pop .55s cubic-bezier(.34,1.56,.64,1) 1.45s forwards;}
+.letter-card.opened .date-col{animation:date-pop .6s cubic-bezier(.34,1.56,.64,1) 1.55s forwards;}
+.letter-card.opened .time-col{animation:date-pop .55s cubic-bezier(.34,1.56,.64,1) 1.65s forwards;}
+@keyframes date-pop{to{opacity:1;transform:scale(1);}}
 
-  .hero-guest{
-    margin-top:44px;
-    padding:20px 28px;
-    border-top:1px solid var(--gold-line);
-    border-bottom:1px solid var(--gold-line);
-  }
-  .hero-guest-label{ color:var(--text-on-navy-dim); font-size:11px; letter-spacing:0.28em; margin-bottom:10px; }
-  .hero-guest-name{ font-size:clamp(20px,4.4vw,28px); color:var(--text-on-navy); }
+.loc-block > *{opacity:0;transform:translateY(10px);}
+.letter-card.opened .loc-label{animation:loc-fade .6s ease 1.8s forwards;}
+.letter-card.opened .loc-venue{animation:loc-fade .6s ease 1.9s forwards;}
+.letter-card.opened .loc-addr{animation:loc-fade .6s ease 2s forwards;}
+@keyframes loc-fade{to{opacity:1;transform:translateY(0);}}
 
-  .scroll-cue{
-    margin-top:56px; color:var(--text-on-navy-dim); font-size:12px;
-    letter-spacing:0.2em; text-transform:uppercase;
-    display:flex; flex-direction:column; align-items:center; gap:8px;
-  }
-  .scroll-cue span.line{ width:1px; height:34px; background:linear-gradient(var(--gold), transparent); animation:cue-move 1.8s ease-in-out infinite; }
-  @keyframes cue-move{ 0%,100%{ transform:scaleY(0.6); opacity:0.4;} 50%{ transform:scaleY(1); opacity:1;} }
-
-  /* =========================================================
-     MESSAGE
-     ========================================================= */
-  #message{ background:var(--parchment); color:var(--text-dark); text-align:center; }
-  .msg-name{ font-size:clamp(24px,5vw,34px); color:var(--ink-navy-2); }
-  .msg-quote{
-    margin-top:26px; font-style:italic; font-weight:400;
-    font-size:clamp(18px,3.6vw,23px); line-height:1.65;
-    color:#2B3547;
-  }
-  .msg-quote::before,.msg-quote::after{ content:'"'; color:var(--gold); }
-
-  /* =========================================================
-     COUNTDOWN
-     ========================================================= */
-  #countdown{
-    background:
-      radial-gradient(120% 160% at 50% 100%, #1C3B60 0%, var(--ink-navy) 60%),
-      var(--ink-navy);
-    color:var(--text-on-navy); text-align:center;
-  }
-  .cd-label{ color:var(--gold-soft); margin-bottom:26px; }
-  .cd-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; max-width:460px; margin:0 auto; }
-  .cd-box{
-    background:rgba(255,255,255,0.03);
-    border:1px solid var(--gold-line);
-    border-radius:14px;
-    padding:18px 6px;
-  }
-  .cd-num{ font-family:'Fraunces', serif; font-weight:600; font-size:clamp(26px,7vw,38px); color:var(--gold-soft); font-variant-numeric:tabular-nums; }
-  .cd-unit{ margin-top:6px; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--text-on-navy-dim); }
-
-  /* =========================================================
-     EVENT INFO
-     ========================================================= */
-  #info{ background:var(--parchment-2); text-align:center; }
-  .info-when{ display:flex; flex-direction:column; align-items:center; gap:4px; margin-bottom:36px; }
-  .info-weekday{ color:var(--gold); letter-spacing:0.2em; font-size:13px; text-transform:uppercase; }
-  .info-date{
-    font-size:clamp(30px,7vw,44px);
-    background:linear-gradient(100deg, var(--ink-navy-2) 38%, var(--gold) 50%, var(--ink-navy-2) 62%);
-    background-size:260% 100%;
-    -webkit-background-clip:text; background-clip:text; color:transparent;
-    animation:date-shimmer 4.5s ease-in-out infinite;
-  }
-  @keyframes date-shimmer{
-    0%{ background-position:200% 0; }
-    100%{ background-position:-200% 0; }
-  }
-  .info-time{ margin-top:6px; font-size:16px; color:#4A5568; }
-
-  .info-card{
-    background:#fff;
-    border:1px solid rgba(199,155,74,0.3);
-    border-radius:18px;
-    padding:30px 26px;
-    box-shadow:var(--shadow-soft);
-  }
-  .info-venue{ font-size:20px; color:var(--ink-navy-2); margin-bottom:8px; }
-  .info-address{ font-size:14.5px; color:#5A6472; line-height:1.6; }
-  .map-btn{
-    margin-top:22px; display:inline-flex; align-items:center; gap:8px;
-    background:var(--ink-navy); color:var(--text-on-navy);
-    padding:13px 26px; border-radius:999px; text-decoration:none;
-    font-size:13px; letter-spacing:0.1em; text-transform:uppercase;
-    transition:transform 0.25s ease, background 0.3s ease;
-  }
-  .map-btn:hover{ background:var(--ink-navy-3); transform:translateY(-2px); }
-
-  /* =========================================================
-     CALENDAR
-     ========================================================= */
-  #calendar{ background:var(--parchment); text-align:center; }
-  .cal-month{ color:var(--ink-navy-2); margin-bottom:22px; }
-  .cal-grid{ max-width:340px; margin:0 auto; display:grid; grid-template-columns:repeat(7,1fr); gap:6px; }
-  .cal-dow{ font-size:11px; color:#8A8168; letter-spacing:0.05em; padding-bottom:6px; }
-  .cal-day{ font-size:14px; padding:9px 0; border-radius:8px; color:#3A3F4C; }
-  .cal-day.empty{ visibility:hidden; }
-  .cal-day.highlight{
-    background:var(--ink-navy);
-    color:var(--gold-soft);
-    font-weight:600;
-    position:relative;
-    animation:pulse-ring 2.6s ease-in-out infinite;
-  }
-  @keyframes pulse-ring{
-    0%,100%{ box-shadow:0 0 0 0 rgba(199,155,74,0.35); }
-    50%{ box-shadow:0 0 0 6px rgba(199,155,74,0.0); }
-  }
-
-  /* =========================================================
-     GALLERY (ẩn tự động nếu không có ảnh)
-     ========================================================= */
-  #gallery{ background:var(--parchment-2); text-align:center; display:none; }
-  #gallery.has-photos{ display:block; }
-  .gal-label{ color:var(--gold); margin-bottom:26px; }
-  .gal-grid{ display:flex; flex-wrap:wrap; gap:16px; justify-content:center; }
-  .gal-frame{
-    width:150px; height:190px; padding:10px 10px 26px 10px;
-    background:#fff; box-shadow:var(--shadow-soft);
-    transform:rotate(var(--rot,-2deg));
-    border-radius:2px;
-  }
-  .gal-frame:nth-child(2n){ --rot:2deg; }
-  .gal-frame:nth-child(3n){ --rot:-4deg; }
-  .gal-frame img{ width:100%; height:100%; object-fit:cover; display:block; }
-
-  /* =========================================================
-     FOOTER
-     ========================================================= */
-  #footer{
-    background:var(--ink-navy); color:var(--text-on-navy-dim);
-    text-align:center; padding:64px 24px 100px;
-  }
-  .footer-hashtag{ color:var(--gold-soft); letter-spacing:0.2em; font-size:13px; margin-bottom:10px; }
-  .footer-note{ font-size:13px; }
-
-  /* =========================================================
-     NÚT NHẠC
-     ========================================================= */
-  #music-toggle{
-    position:fixed; right:18px; z-index:60;
-    bottom:calc(18px + env(safe-area-inset-bottom));
-    width:52px; height:52px; border-radius:50%;
-    background:var(--ink-navy); border:1px solid var(--gold-line);
-    color:var(--gold-soft); cursor:pointer;
-    display:flex; align-items:center; justify-content:center;
-    box-shadow:0 10px 30px rgba(0,0,0,0.35);
-    touch-action:manipulation; -webkit-tap-highlight-color:transparent;
-  }
-  #music-toggle svg{ width:21px; height:21px; }
-  #music-toggle #muteSlash{ opacity:1; transition:opacity 0.25s ease; }
-  #music-toggle.playing #muteSlash{ opacity:0; }
-  #music-toggle.playing svg{ animation:note-pulse 1.7s ease-in-out infinite; }
-  @keyframes note-pulse{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.14); } }
-
-  @media (max-width:480px){
-    section{ padding:76px 20px; }
-    .cd-grid{ gap:8px; }
-  }
+.loc-btn{opacity:0;transform:scale(.85);}
+.letter-card.opened .loc-btn{animation:btn-pop .55s cubic-bezier(.34,1.56,.64,1) 2.15s forwards;}
+@keyframes btn-pop{to{opacity:1;transform:scale(1);}}
 </style>
 </head>
 <body>
 
-<!-- ============================================================
-     MÀN GATE — chạm để mở thiệp (cũng giúp trình duyệt cho phép
-     phát nhạc, vì cần một thao tác chạm của người dùng)
-     ============================================================ -->
-<div id="gate">
-  <p class="eyebrow gate-eyebrow">Chạm để mở thiệp</p>
-
+<!-- TRANG BÌA -->
+<div id="cover">
+  <p class="eyebrow cover-eyebrow">Chạm để mở thiệp</p>
   <div class="envelope" id="envelope">
     <div class="env-body"></div>
     <div class="env-flap" id="envFlap" role="button" tabindex="0" aria-label="Mở thiệp">
-      <div class="gate-seal">
+      <div class="seal">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 4L2 8l10 4 10-4-10-4z"/>
-          <path d="M6 10.3V15c0 1.5 2.7 3 6 3s6-1.5 6-3v-4.7"/>
-          <path d="M20 8.3v5"/>
-          <circle cx="20" cy="14.6" r="0.9" fill="currentColor" stroke="none"/>
+          <path d="M12 4L2 8l10 4 10-4-10-4z"/><path d="M6 10.3V15c0 1.5 2.7 3 6 3s6-1.5 6-3v-4.7"/><path d="M20 8.3v5"/><circle cx="20" cy="14.6" r=".9" fill="currentColor" stroke="none"/>
         </svg>
       </div>
     </div>
   </div>
-
-  <h1 class="gate-title">
+  <h1 class="cover-title">
     <span>Một chương đã khép lại,</span>
     <span class="sub">một hành trình mới bắt đầu</span>
   </h1>
 </div>
 
-<main id="main">
+<!-- TRANG NỘI DUNG -->
+<div id="letterPage">
+  <div class="letter-card" id="letterCard">
+    <div class="silk"></div>
+    <div class="fabric-sheen"></div>
+    <img class="sash sash-left" src="assets/sash-left.png" alt="">
+    <img class="sash sash-right" src="assets/sash-right.png" alt="">
+    <svg class="silk-noise" xmlns="http://www.w3.org/2000/svg">
+      <filter id="t">
+        <feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="2" seed="7" result="n">
+          <animate attributeName="baseFrequency" values="0.012 0.02;0.017 0.027;0.012 0.02" dur="13s" repeatCount="indefinite"/>
+        </feTurbulence>
+        <feColorMatrix in="n" type="matrix" values="0 0 0 0 .35 0 0 0 0 .3 0 0 0 0 .28 0 0 0 .5 0"/>
+      </filter>
+      <rect width="100%" height="100%" filter="url(#t)"/>
+    </svg>
 
-  <!-- HERO -->
-  <section id="hero">
-    <div id="particles"></div>
-    <div class="logo-badge" id="logoBadge" style="display:none;">
-      <img class="hero-logo" id="schoolLogo" src="" alt="Logo trường">
-    </div>
-    <p class="hero-school" id="schoolName"></p>
+    <div class="letter-inner">
+      <div class="zone-top">
+        <div class="brand-row">
+          <div class="brand-logo"><img id="schoolLogo" src="assets/logo.png" alt="Logo trường" onerror="this.parentElement.style.display='none'"></div>
+          <p class="brand-school" id="schoolName"></p>
+        </div>
+        <div class="gc-title">
+          <span>Graduation</span>
+          <span>Ceremony</span>
+          <svg class="gc-cap" viewBox="0 0 24 24" fill="none" stroke="#201A15" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 4L2 8l10 4 10-4-10-4z"/><path d="M6 10.3V15c0 1.5 2.7 3 6 3s6-1.5 6-3v-4.7"/><path d="M20 8.3v5"/><circle cx="20" cy="14.6" r=".9" fill="#201A15" stroke="none"/>
+          </svg>
+        </div>
+      </div>
 
-    <p class="eyebrow hero-eyebrow reveal">Lễ Tốt Nghiệp</p>
-    <h1 class="hero-title reveal">
-      <span>Mùa hè này,</span>
-      <span class="sub">góp mặt cùng <em>tớ</em> nhé</span>
-    </h1>
-    <p class="hero-hashtag reveal" id="hashtagText"></p>
+      <div class="zone-mid">
+        <p class="p-name" id="graduateName"></p>
+        <p class="p-msg" id="msgText"></p>
+      </div>
 
-    <div class="hero-guest reveal">
-      <p class="hero-guest-label">Thân gửi</p>
-      <p class="hero-guest-name" id="guestName">Bạn</p>
-    </div>
-
-    <div class="scroll-cue"><span class="line"></span>Cuộn xuống</div>
-  </section>
-
-  <!-- MESSAGE -->
-  <section id="message">
-    <div class="section-inner">
-      <p class="eyebrow reveal" style="color:var(--gold)">Người tốt nghiệp</p>
-      <h2 class="msg-name reveal" id="graduateName"></h2>
-      <div class="divider"></div>
-      <p class="msg-quote reveal" id="messageText"></p>
-    </div>
-  </section>
-
-  <!-- COUNTDOWN -->
-  <section id="countdown">
-    <div class="section-inner">
-      <p class="eyebrow cd-label reveal">Đếm ngược đến ngày tốt nghiệp</p>
-      <div class="cd-grid reveal">
-        <div class="cd-box"><div class="cd-num" id="cd-days">00</div><div class="cd-unit">Ngày</div></div>
-        <div class="cd-box"><div class="cd-num" id="cd-hours">00</div><div class="cd-unit">Giờ</div></div>
-        <div class="cd-box"><div class="cd-num" id="cd-mins">00</div><div class="cd-unit">Phút</div></div>
-        <div class="cd-box"><div class="cd-num" id="cd-secs">00</div><div class="cd-unit">Giây</div></div>
+      <div class="zone-bottom">
+        <div class="dt-row">
+          <div class="wd-col"><span class="wd-line"></span><p class="wd-label" id="dateWeekday"></p><span class="wd-line"></span></div>
+          <div class="date-col">
+            <p class="date-month" id="dateMonth"></p>
+            <p class="date-day" id="dateDay"></p>
+            <p class="date-year" id="dateYear"></p>
+          </div>
+          <div class="time-col"><span class="wd-line"></span><p class="time-badge" id="timeBadge"></p><span class="wd-line"></span></div>
+        </div>
+        <div class="loc-block">
+          <p class="loc-label">Location</p>
+          <p class="loc-venue" id="locVenue"></p>
+          <p class="loc-addr" id="locAddr"></p>
+          <a class="loc-btn" id="mapBtn" href="#" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.4"/></svg>
+            Chỉ đường
+          </a>
+        </div>
       </div>
     </div>
-  </section>
 
-  <!-- EVENT INFO -->
-  <section id="info">
-    <div class="section-inner">
-      <div class="info-when reveal">
-        <p class="info-weekday" id="infoWeekday"></p>
-        <p class="info-date" id="infoDate"></p>
-        <p class="info-time" id="infoTime"></p>
-      </div>
-      <div class="info-card reveal">
-        <p class="info-venue" id="infoVenue"></p>
-        <p class="info-address" id="infoAddress"></p>
-        <a class="map-btn" id="mapBtn" href="#" target="_blank" rel="noopener">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="3"/></svg>
-          Xem đường đi
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- CALENDAR -->
-  <section id="calendar">
-    <div class="section-inner">
-      <p class="serif cal-month reveal" id="calMonth">Tháng 7, 2026</p>
-      <div class="cal-grid reveal" id="calGrid"></div>
-    </div>
-  </section>
-
-  <!-- GALLERY (tự ẩn nếu mảng photos rỗng) -->
-  <section id="gallery">
-    <div class="section-inner">
-      <p class="eyebrow gal-label reveal">Vài khoảnh khắc thanh xuân</p>
-      <div class="gal-grid reveal" id="galGrid"></div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer id="footer">
-    <p class="footer-hashtag" id="footerHashtag"></p>
-    <p class="footer-note">Rất mong được đón tiếp bạn trong ngày đặc biệt này 🎓</p>
-  </footer>
-
-</main>
-
-<!-- NÚT BẬT/TẮT NHẠC -->
-<button id="music-toggle" aria-label="Bật nhạc nền" style="display:none;">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M9 18V5l11-2v13"/>
-    <circle cx="6" cy="18" r="3"/>
-    <circle cx="17" cy="16" r="3"/>
-    <line id="muteSlash" x1="2.5" y1="2.5" x2="21.5" y2="21.5"/>
-  </svg>
-</button>
-<audio id="bgm" loop preload="none"></audio>
+    <button id="musicBtn" aria-label="Bật nhạc nền">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/><line id="slash" x1="2.5" y1="2.5" x2="21.5" y2="21.5"/>
+      </svg>
+    </button>
+  </div>
+</div>
+<audio id="bgm" src="assets/nhac-nen.mp3" loop preload="none"></audio>
 
 <script>
-/* ============================================================
-   CONFIG — SỬA THÔNG TIN Ở ĐÂY LÀ ĐỦ
-   ============================================================ */
 const CONFIG = {
-  // Dùng \n ở vị trí muốn xuống dòng
   schoolName: "Trường Đại học Ngoại ngữ\nĐại học Đà Nẵng",
-  schoolLogo: "assets/logo.png",     // để trống nếu không có logo
-
+  schoolLogo: "assets/logo.png",
   graduateName: "Nguyễn Thị Long Tuyến",
-  // Dùng \n ở vị trí muốn xuống dòng
-  message: "Hy vọng trong bức tranh thanh xuân của tớ\nsẽ có sự góp mặt của bạn",
-
-  // Thời gian & địa điểm
-  eventDateISO: "2026-07-25T08:00:00+07:00", // 8h00, Thứ Bảy 25/7/2026
+  msgLine1: "Hy vọng trong bức tranh thanh xuân của tớ",
+  msgLine2: "sẽ có sự góp mặt của cậu",
   weekdayLabel: "Thứ Bảy",
-  dateLabel: "25 Tháng 7, 2026",
-  timeLabel: "8:00 sáng",
-
+  dateMonth: "JULY",
+  dateDay: "25",
+  dateYear: "2026",
+  timeStart: "09:00",
+  timeEnd: "11:00",
   venueName: "Trường Đại học Ngoại ngữ – Đại học Đà Nẵng",
   address: "131 Lương Nhữ Hộc, Cẩm Lệ, Đà Nẵng",
-  mapUrl: "https://www.google.com/maps/place/Tr%C6%B0%E1%BB%9Dng+%C4%90%E1%BA%A1i+h%E1%BB%8Dc+Ngo%E1%BA%A1i+ng%E1%BB%AF+%C4%90%C3%A0+N%E1%BA%B5ng+-+C%C6%A1+s%E1%BB%9F+2/@16.0347395,108.2112724,18z",
-
-  hashtag: "#Graduation2026",
-
-  // Nhạc nền — để trống nếu không có
-  music: "assets/nhac-nen.mp3",
-
-  // Ảnh kỷ niệm (tuỳ chọn) — để trống [] nếu chưa có ảnh
-  photos: [
-    "assets/photo1.jpg",
-    "assets/photo2.jpg",
-    "assets/photo3.jpg",
-    "assets/photo4.jpg",
-    "assets/photo5.jpg",
-    "assets/photo6.jpg"
-  ],
-
-  // Lịch hiển thị
-  calendar: { year: 2026, month: 7, highlightDay: 25 }, // month: 1-12
-
-  // Tên khách mời mặc định nếu link không có ?to=
-  defaultGuest: "Bạn"
+  mapUrl: "https://www.google.com/maps/place/Tr%C6%B0%E1%BB%9Dng+%C4%90%E1%BA%A1i+h%E1%BB%8Dc+Ngo%E1%BA%A1i+ng%E1%BB%AF+%C4%90%C3%A0+N%E1%BA%B5ng+-+C%C6%A1+s%E1%BB%9F+2/@16.0347395,108.2112724,18z/data=!4m7!1m4!3m3!1s0x0:0x0!2zMTbCsDAyJzA1LjQiTiAxMDjCsDEyJzQwLjMiRQ!3b1!3m1!1s0x0000000000000000:0x4dbbb9ccec61fee3",
+  music: "assets/nhac-nen.mp3"
 };
 
-/* ============================================================
-   1) TÊN KHÁCH MỜI TỪ URL (?to=...)
-   ============================================================ */
-function getGuestName(){
-  const params = new URLSearchParams(window.location.search);
-  const to = params.get('to');
-  return to ? decodeURIComponent(to.replace(/\+/g,' ')).trim() : CONFIG.defaultGuest;
-}
+function fillText(id, str){ document.getElementById(id).innerHTML = str.replace(/\n/g,'<br>'); }
 
-/* ============================================================
-   2) ĐỔ DỮ LIỆU VÀO GIAO DIỆN
-   ============================================================ */
-function populateContent(){
-  document.getElementById('schoolName').innerHTML = CONFIG.schoolName.replace(/\n/g, '<br>');
-  
-  // Hiển thị logo chỉ khi có
-  if(CONFIG.schoolLogo){
-    document.getElementById('logoBadge').style.display = 'flex';
-    document.getElementById('schoolLogo').src = CONFIG.schoolLogo;
-  }
-  
-  document.getElementById('hashtagText').textContent = CONFIG.hashtag;
-  document.getElementById('guestName').textContent = getGuestName();
-
+function populate(){
+  fillText('schoolName', CONFIG.schoolName);
+  document.getElementById('schoolLogo').src = CONFIG.schoolLogo;
   document.getElementById('graduateName').textContent = CONFIG.graduateName;
-  document.getElementById('messageText').innerHTML = CONFIG.message.replace(/\n/g, '<br>');
-
-  document.getElementById('infoWeekday').textContent = CONFIG.weekdayLabel;
-  document.getElementById('infoDate').textContent = CONFIG.dateLabel;
-  document.getElementById('infoTime').textContent = "Vào lúc " + CONFIG.timeLabel;
-
-  document.getElementById('infoVenue').textContent = CONFIG.venueName;
-  document.getElementById('infoAddress').textContent = CONFIG.address;
+  document.getElementById('msgText').innerHTML = CONFIG.msgLine1 + '<br>' + CONFIG.msgLine2;
+  document.getElementById('dateWeekday').textContent = CONFIG.weekdayLabel;
+  document.getElementById('dateMonth').textContent = CONFIG.dateMonth;
+  document.getElementById('dateDay').textContent = CONFIG.dateDay;
+  document.getElementById('dateYear').textContent = CONFIG.dateYear;
+  document.getElementById('timeBadge').textContent = CONFIG.timeStart + ' – ' + CONFIG.timeEnd;
+  fillText('locVenue', CONFIG.venueName);
+  fillText('locAddr', CONFIG.address);
   document.getElementById('mapBtn').href = CONFIG.mapUrl;
-
-  document.getElementById('footerHashtag').textContent = CONFIG.hashtag;
-
-  if(CONFIG.music){
-    document.getElementById('bgm').src = CONFIG.music;
-    document.getElementById('music-toggle').style.display = 'flex';
-  }
-
+  document.getElementById('bgm').src = CONFIG.music;
   document.title = "Thiệp mời Lễ Tốt Nghiệp – " + CONFIG.graduateName;
 }
 
-/* ============================================================
-   3) ĐẾM NGƯỢC
-   ============================================================ */
-function startCountdown(){
-  const target = new Date(CONFIG.eventDateISO).getTime();
-  const els = {
-    d: document.getElementById('cd-days'),
-    h: document.getElementById('cd-hours'),
-    m: document.getElementById('cd-mins'),
-    s: document.getElementById('cd-secs'),
-  };
-  function pad(n){ return String(n).padStart(2,'0'); }
-  function tick(){
-    const diff = Math.max(0, target - Date.now());
-    const d = Math.floor(diff / 86400000);
-    const h = Math.floor((diff % 86400000) / 3600000);
-    const m = Math.floor((diff % 3600000) / 60000);
-    const s = Math.floor((diff % 60000) / 1000);
-    els.d.textContent = pad(d); els.h.textContent = pad(h);
-    els.m.textContent = pad(m); els.s.textContent = pad(s);
-  }
-  tick();
-  setInterval(tick, 1000);
-}
-
-/* ============================================================
-   4) LỊCH THÁNG — bôi đen ngày trọng đại
-   ============================================================ */
-function buildCalendar(){
-  const { year, month, highlightDay } = CONFIG.calendar;
-  const monthNames = ["Tháng 1","Tháng 2","Tháng 3","Tháng 4","Tháng 5","Tháng 6","Tháng 7","Tháng 8","Tháng 9","Tháng 10","Tháng 11","Tháng 12"];
-  document.getElementById('calMonth').textContent = monthNames[month-1] + ", " + year;
-
-  const grid = document.getElementById('calGrid');
-  const dow = ["T2","T3","T4","T5","T6","T7","CN"];
-  dow.forEach(d=>{
-    const el = document.createElement('div');
-    el.className = 'cal-dow'; el.textContent = d;
-    grid.appendChild(el);
-  });
-
-  const firstDate = new Date(year, month-1, 1);
-  let firstWeekday = firstDate.getDay(); // 0=CN
-  firstWeekday = (firstWeekday === 0) ? 6 : firstWeekday - 1; // chuyển về Mon=0
-
-  const daysInMonth = new Date(year, month, 0).getDate();
-
-  for(let i=0;i<firstWeekday;i++){
-    const el = document.createElement('div');
-    el.className = 'cal-day empty';
-    grid.appendChild(el);
-  }
-  for(let day=1; day<=daysInMonth; day++){
-    const el = document.createElement('div');
-    el.className = 'cal-day' + (day===highlightDay ? ' highlight' : '');
-    el.textContent = day;
-    grid.appendChild(el);
-  }
-}
-
-/* ============================================================
-   5) GALLERY (tự ẩn nếu không có ảnh)
-   ============================================================ */
-function buildGallery(){
-  if(!CONFIG.photos || CONFIG.photos.length===0) return;
-  const section = document.getElementById('gallery');
-  const grid = document.getElementById('galGrid');
-  CONFIG.photos.forEach(src=>{
-    const frame = document.createElement('div');
-    frame.className = 'gal-frame';
-    const img = document.createElement('img');
-    img.src = src; img.alt = CONFIG.graduateName;
-    frame.appendChild(img);
-    grid.appendChild(frame);
-  });
-  section.classList.add('has-photos');
-}
-
-/* ============================================================
-   6) HIỆU ỨNG XUẤT HIỆN KHI CUỘN (scroll reveal)
-   ============================================================ */
-function initReveal(){
-  const items = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        entry.target.classList.add('in');
-        io.unobserve(entry.target);
-      }
-    });
-  }, { threshold:0.2 });
-  items.forEach(item=>io.observe(item));
-}
-
-/* ============================================================
-   7) HẠT SÁNG TRÔI NHẸ TRONG HERO (particles, tinh tế, số lượng ít)
-   ============================================================ */
-function initParticles(){
-  const wrap = document.getElementById('particles');
-  const COUNT = 14;
-  for(let i=0;i<COUNT;i++){
-    const mote = document.createElement('span');
-    mote.className = 'mote';
-    const left = Math.random()*100;
-    const delay = Math.random()*14;
-    const duration = 10 + Math.random()*8;
-    const dx = (Math.random()*40-20).toFixed(0)+'px';
-    mote.style.left = left+'%';
-    mote.style.animationDelay = delay+'s';
-    mote.style.animationDuration = duration+'s';
-    mote.style.setProperty('--dx', dx);
-    wrap.appendChild(mote);
-  }
-}
-
-/* ============================================================
-   8) NÚT NHẠC NỀN
-   ============================================================ */
 function initMusic(){
-  const btn = document.getElementById('music-toggle');
+  const btn = document.getElementById('musicBtn');
   const audio = document.getElementById('bgm');
   let playing = false;
   function setState(p){
@@ -736,30 +334,26 @@ function initMusic(){
   }
   btn.addEventListener('click', ()=>{
     if(playing){ audio.pause(); setState(false); }
-    else{ audio.play().then(()=>setState(true)).catch(()=>setState(false)); }
+    else{ if(audio.currentTime===0){ try{ audio.currentTime = 35.30; }catch(e){} } audio.play().then(()=>setState(true)).catch(()=>setState(false)); }
   });
   return { setState };
 }
 
-/* ============================================================
-   9) MỞ THIỆP (GATE) — chạm để mở, đồng thời cố gắng bật nhạc
-   ============================================================ */
 function initGate(musicControl){
-  const gate = document.getElementById('gate');
-  const main = document.getElementById('main');
+  const cover = document.getElementById('cover');
   const envelope = document.getElementById('envelope');
   const envFlap = document.getElementById('envFlap');
+  const card = document.getElementById('letterCard');
+  const musicBtn = document.getElementById('musicBtn');
   const audio = document.getElementById('bgm');
-
   let opened = false;
+
   function reveal(){
-    gate.classList.add('hidden');
-    main.classList.add('show');
-    if(CONFIG.music){
-      audio.play().then(()=>{
-        musicControl.setState(true);
-      }).catch(()=>{ /* trình duyệt chặn, người dùng có thể bấm nút nhạc thủ công */ });
-    }
+    card.classList.add('shown');
+    setTimeout(()=>{ card.classList.add('opened'); musicBtn.classList.add('in'); }, 350);
+    try{ audio.currentTime = 35.56; }catch(e){}
+    audio.play().then(()=>musicControl.setState(true)).catch(()=>{});
+    setTimeout(()=>{ cover.classList.add('hidden'); }, 500);
   }
   function openInvitation(){
     if(opened) return;
@@ -767,26 +361,15 @@ function initGate(musicControl){
     envelope.classList.add('lift');
     setTimeout(()=>{
       envelope.classList.add('open');
-      setTimeout(reveal, 750);
+      setTimeout(reveal, 650);
     }, 260);
   }
-
   envFlap.addEventListener('click', openInvitation);
-  envFlap.addEventListener('keydown', (e)=>{
-    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); openInvitation(); }
-  });
+  envFlap.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openInvitation(); } });
 }
 
-/* ============================================================
-   KHỞI CHẠY
-   ============================================================ */
 document.addEventListener('DOMContentLoaded', ()=>{
-  populateContent();
-  startCountdown();
-  buildCalendar();
-  buildGallery();
-  initReveal();
-  initParticles();
+  populate();
   const musicControl = initMusic();
   initGate(musicControl);
 });
