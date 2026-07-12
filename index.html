@@ -120,8 +120,9 @@ body{margin:0;background:var(--navy);color:var(--ink);font-family:'Be Vietnam Pr
 
 /* ---- Vùng 2 ---- */
 .zone-mid{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:1.4cqh;margin-top:5.5cqh;}
-.p-name{font-family:'Alex Brush',cursive;font-size:9.4cqw;color:#7C1B24;white-space:nowrap;line-height:1;}
-.p-msg{font-family:'Playfair Display',serif;font-style:italic;font-size:2.8cqh;color:#5F5148;line-height:1.4;}
+.p-block{margin:0;text-align:center;}
+.p-block .name-line{display:block;font-family:'Alex Brush',cursive;font-style:normal;font-size:clamp(25px,8.6vw,25px);color:#7C1B24;line-height:1.15;margin-bottom:.35em;}
+.p-block .msg-line{display:block;font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(15px,3.6vw,15px);color:#5F5148;line-height:1.4;}
 
 /* ---- Vùng 3 ---- */
 .zone-bottom{flex:0 0 auto;display:flex;flex-direction:column;gap:3cqh;margin-top: -5cqh;}
@@ -171,13 +172,10 @@ body{margin:0;background:var(--navy);color:var(--ink);font-family:'Be Vietnam Pr
 .letter-card.opened .gc-cap{animation:cap-pop .6s cubic-bezier(.34,1.56,.64,1) .85s forwards;}
 @keyframes cap-pop{to{opacity:1;transform:rotate(-12deg) scale(1);}}
 
-.p-name{opacity:0;transform:translateY(10px);}
-.letter-card.opened .p-name{animation:name-fade .8s ease 1s forwards;}
-@keyframes name-fade{to{opacity:1;transform:translateY(0);}}
+.p-block{opacity:0;transform:translateY(10px);}
+.letter-card.opened .p-block{animation:block-fade .8s ease 1s forwards;}
+@keyframes block-fade{to{opacity:1;transform:translateY(0);}}
 
-.p-msg{opacity:0;transform:translateY(10px);}
-.letter-card.opened .p-msg{animation:msg-fade .7s ease 1.2s forwards;}
-@keyframes msg-fade{to{opacity:1;transform:translateY(0);}}
 
 .wd-col,.date-col,.time-col{opacity:0;transform:scale(.85);}
 .letter-card.opened .wd-col{animation:date-pop .55s cubic-bezier(.34,1.56,.64,1) 1.45s forwards;}
@@ -250,8 +248,7 @@ body{margin:0;background:var(--navy);color:var(--ink);font-family:'Be Vietnam Pr
       </div>
 
       <div class="zone-mid">
-        <p class="p-name" id="graduateName"></p>
-        <p class="p-msg" id="msgText"></p>
+        <p class="p-block" id="msgBlock"></p>
       </div>
 
       <div class="zone-bottom">
@@ -309,8 +306,9 @@ function fillText(id, str){ document.getElementById(id).innerHTML = str.replace(
 function populate(){
   fillText('schoolName', CONFIG.schoolName);
   document.getElementById('schoolLogo').src = CONFIG.schoolLogo;
-  document.getElementById('graduateName').textContent = CONFIG.graduateName;
-  document.getElementById('msgText').innerHTML = CONFIG.msgLine1 + '<br>' + CONFIG.msgLine2;
+  document.getElementById('msgBlock').innerHTML =
+    '<span class="name-line">' + CONFIG.graduateName + '</span>' +
+    '<span class="msg-line">' + CONFIG.msgLine1 + '<br>' + CONFIG.msgLine2 + '</span>';
   document.getElementById('dateWeekday').textContent = CONFIG.weekdayLabel;
   document.getElementById('dateMonth').textContent = CONFIG.dateMonth;
   document.getElementById('dateDay').textContent = CONFIG.dateDay;
