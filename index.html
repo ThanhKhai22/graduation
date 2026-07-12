@@ -171,9 +171,9 @@ body{margin:0;background:var(--navy);color:var(--ink);font-family:'Be Vietnam Pr
 .letter-card.opened .gc-cap{animation:cap-pop .6s cubic-bezier(.34,1.56,.64,1) .85s forwards;}
 @keyframes cap-pop{to{opacity:1;transform:rotate(-12deg) scale(1);}}
 
-.p-name{opacity:0;letter-spacing:.3em;}
-.letter-card.opened .p-name{animation:name-reveal .8s ease 1s forwards;}
-@keyframes name-reveal{to{opacity:1;letter-spacing:normal;}}
+.p-name{opacity:0;transform:translateY(10px);}
+.letter-card.opened .p-name{animation:name-fade .8s ease 1s forwards;}
+@keyframes name-fade{to{opacity:1;transform:translateY(0);}}
 
 .p-msg{opacity:0;transform:translateY(10px);}
 .letter-card.opened .p-msg{animation:msg-fade .7s ease 1.2s forwards;}
