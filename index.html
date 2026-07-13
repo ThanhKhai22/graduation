@@ -107,7 +107,7 @@ body{margin:0;background:var(--navy);color:var(--ink);font-family:'Be Vietnam Pr
 .brand-row{display:flex;align-items:center;justify-content:center;gap:1.8cqw;width:100%;}
 .brand-logo{width:8cqh;height:8cqh;border-radius:50%;background:radial-gradient(circle at 32% 28%,#fff,#F3ECD8 78%);border:1.2px solid rgba(199,155,74,.5);box-shadow:0 6px 14px rgba(60,40,30,.18);display:flex;align-items:center;justify-content:center;padding:1.2cqh;flex-shrink:0;}
 .brand-logo img{width:100%;height:100%;object-fit:contain;}
-.brand-school{font-size:2.5cqw;line-height:1.4;letter-spacing:.02em;text-transform:uppercase;color:#3D312B;text-align:left;white-space:nowrap;}
+.brand-school{font-family: "Cormorant Garamond", serif;font-size:2.8cqw;line-height:1.4;letter-spacing:.02em;text-transform:uppercase;color:#3D312B;text-align:left;white-space:nowrap;}
 
 /* dải sash - phủ tuyệt đối 2 bên, không chiếm chỗ trong luồng nội dung */
 .sash{position:absolute;top:-2px;height:42cqh;width:auto;aspect-ratio:173/900;z-index:1;pointer-events:none;filter:drop-shadow(0 10px 14px rgba(60,20,20,.3));}
@@ -115,27 +115,26 @@ body{margin:0;background:var(--navy);color:var(--ink);font-family:'Be Vietnam Pr
 .sash-right{right:0;border-top-right-radius:14px;}
 
 .gc-title{position:relative;text-align:center;}
-.gc-title span{display:block;font-family:'Playfair Display',serif;font-style:italic;font-weight:600;font-size:6.6cqh;line-height:1.06;color:var(--ink);margin-top:1cqh}
+.gc-title span{display:block;font-family:'Playfair Display',serif;font-style:italic;font-weight:600;font-size:6.6cqh;line-height:1.06;color:var(--ink);margin-top:2cqh;margin-bottom: -2cqh;}
 .gc-cap{position:absolute;top:-5cqh;left:75%;transform:translateX(-50%) rotate(-3deg);width:8cqh;height:auto;margin-top:1cqh;fill:#20201d}
 
 /* ---- Vùng 2 ---- */
 .zone-mid{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:1.4cqh;margin-top:5.5cqh;}
-.p-block{margin:0;text-align:center;}
-.p-block .name-line{display:block;font-family:'Alex Brush',cursive;font-style:normal;font-size:clamp(25px,8.6vw,25px);color:#7C1B24;line-height:1.15;margin-bottom:.35em;}
-.p-block .msg-line{display:block;font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(15px,3.6vw,15px);color:#5F5148;line-height:1.4;}
+.p-name{font-family:'Alex Brush',cursive;font-size:9.4cqw;color:#7C1B24;white-space:nowrap;line-height:1;}
+.p-msg{font-family:'Playfair Display',serif;font-style:italic;font-size:2.8cqh;color:#5F5148;line-height:1.4;}
 
 /* ---- Vùng 3 ---- */
 .zone-bottom{flex:0 0 auto;display:flex;flex-direction:column;gap:3cqh;margin-top: -5cqh;}
 .dt-row{display:flex;align-items:center;justify-content:center;gap:3.5cqw;}
-.wd-col,.time-col{display:flex;flex-direction:column;align-items:center;gap:.7cqh;}
+.wd-col,.time-col{font-size:5cqw;display:flex;flex-direction:column;align-items:center;gap:1.7cqh;}
 .wd-line{width:100%;height:1px;background:rgba(199,155,74,.5);}
-.wd-label{font-size:1.95cqh;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);font-weight:600;}
+.wd-label{font-size:4cqw;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);font-weight:600;}
 .date-col{display:flex;flex-direction:column;align-items:center;gap:1.3cqh;}
 .date-month{font-size:1.7cqh;letter-spacing:.24em;color:var(--maroon);text-transform:uppercase;}
 .date-day{font-family:'Playfair Display',serif;font-weight:600;font-size:6.6cqh;margin-top:-2.5cqh;line-height:1;color:var(--ink);animation:pulse-day 2.2s ease-in-out infinite;}
 .date-year{font-size:1.7cqh;letter-spacing:.14em;color:var(--ink-dim);}
 @keyframes pulse-day{0%,100%{transform:scale(1);}50%{transform:scale(1.06);}}
-.time-badge{font-size:3cqw;letter-spacing:.04em;color:var(--ink);font-weight:600;white-space:nowrap;}
+.time-badge{font-size:5cqw;letter-spacing:.04em;color:var(--ink);font-weight:600;white-space:nowrap;}
 .loc-block{text-align:center;}
 .loc-label{font-size:1.4cqh;letter-spacing:.28em;color:var(--gold);text-transform:uppercase;margin-bottom:2.5cqh;}
 .loc-venue{font-family:'Playfair Display',serif;font-size:3.8cqw;color:var(--ink);margin-bottom:2.3cqh;white-space:nowrap;}
@@ -172,10 +171,13 @@ body{margin:0;background:var(--navy);color:var(--ink);font-family:'Be Vietnam Pr
 .letter-card.opened .gc-cap{animation:cap-pop .6s cubic-bezier(.34,1.56,.64,1) .85s forwards;}
 @keyframes cap-pop{to{opacity:1;transform:rotate(-12deg) scale(1);}}
 
-.p-block{opacity:0;transform:translateY(10px);}
-.letter-card.opened .p-block{animation:block-fade .8s ease 1s forwards;}
-@keyframes block-fade{to{opacity:1;transform:translateY(0);}}
+.p-name{opacity:0;transform:translateY(10px);}
+.letter-card.opened .p-name{animation:name-fade .8s ease 1s forwards;}
+@keyframes name-fade{to{opacity:1;transform:translateY(0);}}
 
+.p-msg{opacity:0;transform:translateY(10px);}
+.letter-card.opened .p-msg{animation:msg-fade .7s ease 1.2s forwards;}
+@keyframes msg-fade{to{opacity:1;transform:translateY(0);}}
 
 .wd-col,.date-col,.time-col{opacity:0;transform:scale(.85);}
 .letter-card.opened .wd-col{animation:date-pop .55s cubic-bezier(.34,1.56,.64,1) 1.45s forwards;}
@@ -248,7 +250,8 @@ body{margin:0;background:var(--navy);color:var(--ink);font-family:'Be Vietnam Pr
       </div>
 
       <div class="zone-mid">
-        <p class="p-block" id="msgBlock"></p>
+        <p class="p-name" id="graduateName"></p>
+        <p class="p-msg" id="msgText"></p>
       </div>
 
       <div class="zone-bottom">
@@ -293,8 +296,8 @@ const CONFIG = {
   dateMonth: "JULY",
   dateDay: "25",
   dateYear: "2026",
-  timeStart: "09:00",
-  timeEnd: "11:00",
+  timeStart: "09:30",
+ 
   venueName: "Trường Đại học Ngoại ngữ – Đại học Đà Nẵng",
   address: "131 Lương Nhữ Hộc, Cẩm Lệ, Đà Nẵng",
   mapUrl: "https://www.google.com/maps/place/Tr%C6%B0%E1%BB%9Dng+%C4%90%E1%BA%A1i+h%E1%BB%8Dc+Ngo%E1%BA%A1i+ng%E1%BB%AF+%C4%90%C3%A0+N%E1%BA%B5ng+-+C%C6%A1+s%E1%BB%9F+2/@16.0347395,108.2112724,18z/data=!4m7!1m4!3m3!1s0x0:0x0!2zMTbCsDAyJzA1LjQiTiAxMDjCsDEyJzQwLjMiRQ!3b1!3m1!1s0x0000000000000000:0x4dbbb9ccec61fee3",
@@ -306,14 +309,13 @@ function fillText(id, str){ document.getElementById(id).innerHTML = str.replace(
 function populate(){
   fillText('schoolName', CONFIG.schoolName);
   document.getElementById('schoolLogo').src = CONFIG.schoolLogo;
-  document.getElementById('msgBlock').innerHTML =
-    '<span class="name-line">' + CONFIG.graduateName + '</span>' +
-    '<span class="msg-line">' + CONFIG.msgLine1 + '<br>' + CONFIG.msgLine2 + '</span>';
+  document.getElementById('graduateName').textContent = CONFIG.graduateName;
+  document.getElementById('msgText').innerHTML = CONFIG.msgLine1 + '<br>' + CONFIG.msgLine2;
   document.getElementById('dateWeekday').textContent = CONFIG.weekdayLabel;
   document.getElementById('dateMonth').textContent = CONFIG.dateMonth;
   document.getElementById('dateDay').textContent = CONFIG.dateDay;
   document.getElementById('dateYear').textContent = CONFIG.dateYear;
-  document.getElementById('timeBadge').textContent = CONFIG.timeStart + ' – ' + CONFIG.timeEnd;
+  document.getElementById('timeBadge').textContent = CONFIG.timeStart;
   fillText('locVenue', CONFIG.venueName);
   fillText('locAddr', CONFIG.address);
   document.getElementById('mapBtn').href = CONFIG.mapUrl;
